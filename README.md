@@ -33,13 +33,19 @@ By default, [`default.sh`](https://github.com/mjhong0708/slurmer/blob/master/slu
 - Submit job
   
   ```python
-  import os
   from slurmer.job import SlurmJob
 
   job_dir = "my_job"
-  os.mkdir(job_dir)
 
-  job = SlurmJob(job_dir, "default.sh", "myjob", "g1", 2, 32, exec_command="echo 'Hello'")
+  job = SlurmJob(
+      workdir=job_dir,
+      template_file="default.sh",
+      job_name="my_slurm_job",
+      node_partition="g1",
+      num_nodes=2,
+      num_tasks=32,
+      exec_command="echo Hello,world!",
+  )
 
-  job.submit(write_job_script=True)
+  job.submit()
   ```

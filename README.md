@@ -7,6 +7,8 @@ Automatic generation of `SLURM` job script based on `jinja` template engine
 
 Clone repository, install `poetry` and run `poetry install`.
 
+Or, download wheel from `release` tab and `pip install` it.
+
 
 ## Usage
 

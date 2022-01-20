@@ -18,15 +18,15 @@ class SlurmJob:
     """Slurm job class.
 
     Args:
-        workdir (Union[str, os.PathLike]): Working directory for slurm jon.
-        template_file (str): Path of template file.
-        job_name (str): Name of job.
-        node_partition (str): Partition of nodes.
-        num_nodes (int): The number of nodes.
-        num_tasks (int): The number of tasks(threads).
-        node_list (Optional[Sequence[int]], optional): List of nodes to use. Defaults to None.
-        node_exclude_list (Optional[str], optional): List of nodes to exclude. Defaults to None.
-        kwargs: Optional arguments, which are passed into ``generate_jobscript``.
+      workdir: Working directory for slurm jon.
+      template_file: Path of template file.
+      job_name: Name of job.
+      node_partition: Partition of nodes.
+      num_nodes: The number of nodes.
+      num_tasks: The number of tasks(threads).
+      node_list: List of nodes to use. Defaults to None.
+      node_exclude_list: List of nodes to exclude. Defaults to None.
+      kwargs: Optional arguments, which are passed into ``generate_jobscript``.
     """
 
     def __init__(
@@ -61,7 +61,7 @@ class SlurmJob:
         """Job script.
 
         Returns:
-            str: Generated job script from instance attributes.
+          str: Generated job script from instance attributes.
         """
         if self.__job_script is not None:
             return self.__job_script
@@ -82,12 +82,11 @@ class SlurmJob:
         """Submit batch job via slurm workload manager.
 
         Args:
-            write_job_script (bool, optional): Whether to write the job script in ``self.workdir``.
-            Defaults to False.
-            job_script_name (str, optional): Name of the job script. Defaults to "job_script.sh".
+          write_job_script: Whether to write the job script in ``self.workdir``. Defaults to False.
+          job_script_name: Name of the job script. Defaults to "job_script.sh".
 
         Raises:
-            RuntimeError: Raised if the working directory does not exist.
+          RuntimeError: Raised if the working directory does not exist.
         """
         cwd = Path.cwd()
         if not self.workdir.is_dir():
@@ -117,20 +116,20 @@ def generate_jobscript(
     """Get slurm job script.
 
     Args:
-        template_file (str): Path of template file.
-        job_name (str): Name of job.
-        node_partition (str): Partition of nodes.
-        num_nodes (int): The number of nodes.
-        num_tasks (int): The number of tasks(threads).
-        node_list (Optional[Sequence[int]], optional): List of nodes to use. Defaults to None.
-        node_exclude_list (Optional[str], optional): List of nodes to exclude. Defaults to None.
-        kwargs: Optional template identifiers.
+      template_file: Path of template file.
+      job_name: Name of job.
+      node_partition: Partition of nodes.
+      num_nodes: The number of nodes.
+      num_tasks: The number of tasks(threads).
+      node_list: List of nodes to use. Defaults to None.
+      node_exclude_list: List of nodes to exclude. Defaults to None.
+      kwargs: Optional template identifiers.
 
     Raises:
-        ValueError: Raised when both node_list and node_exclude_list are specified.
+      ValueError: Raised when both node_list and node_exclude_list are specified.
 
     Returns:
-        str: Rendered job script as string.
+      str: Rendered job script as string.
     """
     if node_list is not None and node_exclude_list is not None:
         raise ValueError("node_list and node_exclude list cannot be specified simultaneously.")

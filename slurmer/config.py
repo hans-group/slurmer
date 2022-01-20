@@ -43,10 +43,10 @@ class TemplateManager:
         """Add path to config.
 
         Args:
-            path (Union[str, os.PathLike]): Directory to find templates in.
+          path: Directory to find templates in.
 
         Raises:
-            ValueError: Raised if path already exists in config.
+          ValueError: Raised if path already exists in config.
         """
         abs_path = Path(path).absolute()
         if abs_path not in self.template_dirs:
@@ -59,10 +59,10 @@ class TemplateManager:
         """Remove path from config.
 
         Args:
-            path (Union[str, os.PathLike]):  Directory to remove.
+          path:  Directory to remove.
 
         Raises:
-            ValueError: Raised if path does not exists in config.
+          ValueError: Raised if path does not exists in config.
         """
         abs_path = Path(path).absolute()
         q = Query()

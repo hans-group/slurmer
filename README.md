@@ -45,8 +45,10 @@ By default, [`default.sh`](https://github.com/mjhong0708/slurmer/blob/master/slu
       node_partition="g1",
       num_nodes=2,
       num_tasks=32,
-      exec_command="echo Hello,world!",
+      exec_command="echo Hello,world!", # this is required by default.sh
   )
 
   job.submit()
   ```
+  The keyword argument `exec_command` is required by `default.sh`.
+  If you use your custom template, it is not required.

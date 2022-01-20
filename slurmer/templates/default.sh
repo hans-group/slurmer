@@ -13,9 +13,4 @@
 #SBATCH -x, --exclude={{ node_exclude_list }}
 {% endif %}
 
-module purge
-module add Compiler/Intel/18.0.5
-module add MKL/2018.5.274
-module add MPI/intel/2018.4.274
-
 {{ exec_command }} > stdout.log

@@ -5,61 +5,40 @@ Automatic generation of `SLURM` job script based on `jinja` template engine
 
 ## Install
 
-Clone repository, install `poetry` and run `poetry install`.
+Install `master` branch: `pip install git+https://github.com/mjhong0708/slurmer`
 
 Or, download wheel from `release` tab and `pip install` it.
 
 
 ## Usage
 
-Prepare a template file in `~/.config/slurmer/templates`.
+By default, [`default.sh`](https://github.com/mjhong0708/slurmer/blob/master/slurmer/templates/default.sh) is available as template.
 
-Example: `run_slurm.sh`
+- Show list of available templates
 
-```bash
-#!/bin/bash
-#SBATCH -J {{ job_name }}
-#SBATCH -o myMPI.o%j       # output and error file name (%j expands to jobID)
-#SBATCH -p {{ node_partition }}
-#SBATCH -N {{ num_nodes }}
-#SBATCH -n {{ num_tasks }}
-{% if node_list == 'none' %}
-##SBATCH -w, --nodelist=
-{% else %}
-#SBATCH -w, --nodelist={{ node_list }}
-{% endif %}
-{% if node_exclude_list != 'none' %}
-#SBATCH -x, --exclude={{ node_exclude_list }}
-{% endif %}
+  ```python
+  import slurmer
 
-mpiexec.hydra -np $SLURM_NTASKS path/to/vasp > stdout.log
-```
+  slurmer.list_templates()
+  ```
+- Add directory to seek template files
 
-Then, call `get_script` to render template as job script.
-```python
-from slurmer.script import get_script
-script = get_script(
-    template_file="run_slurm.sh",
-    job_name="myjob",
-    node_partition="g1",
-    num_nodes=2,
-    num_tasks=32,
-    node_list=[10, 12, 15], # optional
-)
-print(script)
-```
+  ```python
+  from slurmer.config import TemplateManager
 
-Now you can see output:
+  m = TemplateManager()
+  m.add_path('path/to/template')
+  ```
+- Submit job
+  
+  ```python
+  import os
+  from slurmer.job import SlurmJob
 
-```bash
-#!/bin/bash
-#SBATCH -J myjob
-#SBATCH -o myMPI.o%j       # output and error file name (%j expands to jobID)
-#SBATCH -p g1
-#SBATCH -N 2
-#SBATCH -n 32
+  job_dir = "my_job"
+  os.mkdir(job_dir)
 
-#SBATCH -w, --nodelist=n010,n012,n015
+  job = SlurmJob(job_dir, "default.sh", "myjob", "g1", 2, 32, exec_command="echo 'Hello'")
 
-mpiexec.hydra -np $SLURM_NTASKS path/to/vasp > stdout.log
-```
+  job.submit(write_job_script=True)
+  ```

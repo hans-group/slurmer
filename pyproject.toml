@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "slurmer"
+version = "0.1.0"
+description = ""
+authors = ["Minjoon Hong <mjhong0708@yonsei.ac.kr>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Jinja2 = "^3.0.3"
+tinydb = "^4.6.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+flake8 = "^4.0.1"
+mypy = "^0.931"
+isort = "^5.10.1"
+black = "^21.12b0"
+ipython = "^8.0.1"
+ipykernel = "^6.7.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

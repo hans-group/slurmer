@@ -4,12 +4,13 @@ from pathlib import Path
 from tinydb import Query, TinyDB
 
 config_dir = Path.home() / ".config" / "slurmer"
-default_template_dir = config_dir / "templates"
+user_template_dir = config_dir / "templates"
+default_template_dir = Path(__file__).parent / "templates"
 
 if not config_dir.is_dir():
     config_dir.mkdir(parents=True)
-if not default_template_dir.is_dir():
-    default_template_dir.mkdir(parents=True)
+if not user_template_dir.is_dir():
+    user_template_dir.mkdir(parents=True)
 
 
 class TemplateManager:
@@ -23,7 +24,7 @@ class TemplateManager:
 
     def _update_dirs(self):
         """Updates template dirs with config db"""
-        self.template_dirs = [default_template_dir.absolute()]
+        self.template_dirs = [default_template_dir.absolute(), user_template_dir.absolute()]
         for d in self.db.all():
             self.template_dirs.append(Path(d["path"]))
 

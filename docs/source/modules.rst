@@ -5,4 +5,3 @@ slurmer
    :maxdepth: 4
 
    slurmer
-   tests

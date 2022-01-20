@@ -5,7 +5,7 @@ from tinydb import Query, TinyDB
 
 config_dir = Path.home() / ".config" / "slurmer"
 user_template_dir = config_dir / "templates"
-default_template_dir = Path(__file__) / "templates"
+default_template_dir = Path(__file__).parent / "templates"
 
 if not config_dir.is_dir():
     config_dir.mkdir(parents=True)

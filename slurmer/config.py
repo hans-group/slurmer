@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-
+from typing import Union
 from tinydb import Query, TinyDB
 
 config_dir = Path.home() / ".config" / "slurmer"
@@ -39,8 +39,15 @@ class TemplateManager:
             for f in os.listdir(d):
                 print("directory:", d, "file:", f)
 
-    def add_path(self, path: os.PathLike):
-        """Add path to config.json"""
+    def add_path(self, path: Union[str, os.PathLike]):
+        """Add path to config.
+
+        Args:
+            path (Union[str, os.PathLike]): Directory to find templates in.
+
+        Raises:
+            ValueError: Raised if path already exists in config.
+        """
         abs_path = Path(path).absolute()
         if abs_path not in self.template_dirs:
             self.db.insert({"path": abs_path.__str__()})
@@ -48,8 +55,15 @@ class TemplateManager:
             raise ValueError("Path already exists: {}".format(abs_path))
         self._update_dirs()
 
-    def remove_path(self, path: os.PathLike):
-        """Remove path from to config.json"""
+    def remove_path(self, path: Union[str, os.PathLike]):
+        """Remove path from config.
+
+        Args:
+            path (Union[str, os.PathLike]):  Directory to remove.
+
+        Raises:
+            ValueError: Raised if path does not exists in config.
+        """
         abs_path = Path(path).absolute()
         q = Query()
         return_code = self.db.remove(q.path == abs_path.__str__())

@@ -15,6 +15,20 @@ env = Environment(loader=loader, autoescape=select_autoescape())
 
 
 class SlurmJob:
+    """Slurm job class.
+
+    Args:
+        workdir (Union[str, os.PathLike]): Working directory for slurm jon.
+        template_file (str): Path of template file.
+        job_name (str): Name of job.
+        node_partition (str): Partition of nodes.
+        num_nodes (int): The number of nodes.
+        num_tasks (int): The number of tasks(threads).
+        node_list (Optional[Sequence[int]], optional): List of nodes to use. Defaults to None.
+        node_exclude_list (Optional[str], optional): List of nodes to exclude. Defaults to None.
+        kwargs: Optional arguments, which are passed into ``generate_jobscript``.
+    """
+
     def __init__(
         self,
         workdir: Union[str, os.PathLike],
@@ -27,6 +41,7 @@ class SlurmJob:
         node_exclude_list: Optional[str] = None,
         **kwargs,
     ):
+
         if not isinstance(workdir, Path):
             self.workdir = Path(workdir)
         else:
@@ -43,6 +58,11 @@ class SlurmJob:
 
     @property
     def job_script(self) -> str:
+        """Job script.
+
+        Returns:
+            str: Generated job script from instance attributes.
+        """
         if self.__job_script is not None:
             return self.__job_script
         else:
@@ -59,6 +79,16 @@ class SlurmJob:
             return job_script
 
     def submit(self, write_job_script: bool = False, job_script_name: str = "job_script.sh"):
+        """Submit batch job via slurm workload manager.
+
+        Args:
+            write_job_script (bool, optional): Whether to write the job script in ``self.workdir``.
+            Defaults to False.
+            job_script_name (str, optional): Name of the job script. Defaults to "job_script.sh".
+
+        Raises:
+            RuntimeError: Raised if the working directory does not exist.
+        """
         cwd = Path.cwd()
         if not self.workdir.is_dir():
             raise RuntimeError("Workdir does not exists.")
@@ -94,12 +124,13 @@ def generate_jobscript(
         num_tasks (int): The number of tasks(threads).
         node_list (Optional[Sequence[int]], optional): List of nodes to use. Defaults to None.
         node_exclude_list (Optional[str], optional): List of nodes to exclude. Defaults to None.
+        kwargs: Optional template identifiers.
 
     Raises:
         ValueError: Raised when both node_list and node_exclude_list are specified.
 
     Returns:
-        str: Rendered job script.
+        str: Rendered job script as string.
     """
     if node_list is not None and node_exclude_list is not None:
         raise ValueError("node_list and node_exclude list cannot be specified simultaneously.")

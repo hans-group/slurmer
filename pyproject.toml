@@ -3,6 +3,7 @@ name = "slurmer"
 version = "0.1.0"
 description = ""
 authors = ["Minjoon Hong <mjhong0708@yonsei.ac.kr>"]
+include = ["slurmer/"]
 
 [tool.poetry.dependencies]
 python = "^3.8"

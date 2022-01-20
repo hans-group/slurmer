@@ -6,6 +6,7 @@ Automatic generation of `SLURM` job script based on `jinja` template engine
 ## Install
 
 Install `master` branch: `pip install git+https://github.com/mjhong0708/slurmer`
+
 Install latest version(0.2.0): `pip install git+https://github.com/mjhong0708/slurmer.git@v0.2.0`
 
 Or, download wheel from `release` tab and `pip install` it.

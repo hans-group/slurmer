@@ -43,10 +43,3 @@ To submit job:
 .. code-block:: python
 
     job.submit()
-
-By default, the job script is temporarily created and won't be written to the working directory. 
-However, you can persist it with optional argument ``write_job_script``. To write the job script:
-
-.. code-block:: python
-
-    job.submit(write_job_script=True, job_script_name="my_slurm_job.sh")

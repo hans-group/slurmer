@@ -3,3 +3,6 @@ sphinx-rtd-theme
 recommonmark
 sphinx-sitemap
 sphinx-autodoc-typehints
+# for autodoc
+jinja2
+tinydb

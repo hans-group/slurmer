@@ -5,16 +5,16 @@ Automatic generation of `SLURM` job script based on `jinja` template engine
 
 ## Install
 
-Install `master` branch: `pip install git+https://github.com/mjhong0708/slurmer`
+Install `master` branch: `pip install git+https://github.com/hans-group/slurmer`
 
-Install latest version(0.2.0): `pip install git+https://github.com/mjhong0708/slurmer.git@v0.2.0`
+Install latest version(0.2.0): `pip install git+https://github.com/hans-group/slurmer.git@v0.2.0`
 
 Or, download wheel from `release` tab and `pip install` it.
 
 
 ## Usage
 
-By default, [`default.sh`](https://github.com/mjhong0708/slurmer/blob/master/slurmer/templates/default.sh) is available as template.
+By default, [`default.sh`](https://github.com/hans-group/slurmer/blob/master/slurmer/templates/default.sh) is available as template.
 
 - Show list of available templates
 
